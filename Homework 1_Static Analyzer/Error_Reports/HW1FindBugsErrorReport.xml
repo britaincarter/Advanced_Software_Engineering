@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="3.0.1-dev-20150306-5afe4d1" sequence="1" timestamp="1473618968154" analysisTimestamp="1473618966559" release="">
+  <Project projectName="Homework 1_Static Analyzer">
+    <Jar>C:\Users\Britain\Desktop\WorkSpace Eclipse\Advanced Software Engineering\Homework 1_Static Analyzer\bin</Jar>
+    <AuxClasspathEntry>C:\Users\Britain\Desktop\WorkSpace Eclipse\Advanced Software Engineering\Homework 1_Static Analyzer\bin</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Program Files (x86)\Java\jre1.8.0_25\lib\rt.jar</AuxClasspathEntry>
+    <SrcDir>C:\Users\Britain\Desktop\WorkSpace Eclipse\Advanced Software Engineering\Homework 1_Static Analyzer\src</SrcDir>
+    <Cloud id="edu.umd.cs.findbugs.cloud.doNothingCloud" online="false"></Cloud>
+  </Project>
+  <BugInstance type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" priority="2" rank="18" abbrev="RCN" category="STYLE" first="1">
+    <Class classname="AvlTree">
+      <SourceLine classname="AvlTree" sourcefile="AvlTree.java" sourcepath="AvlTree.java"/>
+    </Class>
+    <Method classname="AvlTree" name="checkBalance" signature="(LAvlTree$AvlNode;)I" isStatic="false">
+      <SourceLine classname="AvlTree" start="160" end="170" startBytecode="0" endBytecode="234" sourcefile="AvlTree.java" sourcepath="AvlTree.java"/>
+    </Method>
+    <LocalVariable name="t" register="1" pc="6" role="LOCAL_VARIABLE_VALUE_OF"/>
+    <SourceLine classname="AvlTree" start="163" end="163" startBytecode="7" endBytecode="7" sourcefile="AvlTree.java" sourcepath="AvlTree.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+    <SourceLine classname="AvlTree" start="163" end="163" startBytecode="7" endBytecode="7" sourcefile="AvlTree.java" sourcepath="AvlTree.java" role="SOURCE_REDUNDANT_NULL_CHECK"/>
+  </BugInstance>
+  <BugInstance type="DMI_HARDCODED_ABSOLUTE_FILENAME" priority="1" rank="15" abbrev="DMI" category="STYLE" first="1">
+    <Class classname="BwogBot">
+      <SourceLine classname="BwogBot" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    </Class>
+    <Method classname="BwogBot" name="main" signature="([Ljava/lang/String;)V" isStatic="true">
+      <SourceLine classname="BwogBot" start="125" end="132" startBytecode="0" endBytecode="22" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    </Method>
+    <String value="C:/Users/Britain/Documents/GitHub/homework-bic2106/4/src/comments.txt" role="FILE_NAME"/>
+    <SourceLine classname="BwogBot" start="126" end="126" startBytecode="11" endBytecode="11" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    <SourceLine classname="BwogBot" start="126" end="126" startBytecode="11" endBytecode="11" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+  </BugInstance>
+  <BugInstance type="DM_BOXED_PRIMITIVE_FOR_PARSING" priority="1" rank="16" abbrev="Bx" category="PERFORMANCE" first="1">
+    <Class classname="BwogBot">
+      <SourceLine classname="BwogBot" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    </Class>
+    <Method classname="BwogBot" name="readFile" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="BwogBot" start="23" end="77" startBytecode="0" endBytecode="471" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="intValue" signature="()I" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.lang.Integer"/>
+    </Method>
+    <Method classname="java.lang.Integer" name="parseInt" signature="(Ljava/lang/String;)I" isStatic="true" role="SHOULD_CALL"/>
+    <SourceLine classname="BwogBot" start="39" end="39" startBytecode="125" endBytecode="125" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    <SourceLine classname="BwogBot" start="39" end="39" startBytecode="125" endBytecode="125" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+  </BugInstance>
+  <BugInstance type="DM_DEFAULT_ENCODING" priority="1" rank="19" abbrev="Dm" category="I18N" first="1">
+    <Class classname="BwogBot">
+      <SourceLine classname="BwogBot" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    </Class>
+    <Method classname="BwogBot" name="readFile" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="BwogBot" start="23" end="77" startBytecode="0" endBytecode="471" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    </Method>
+    <Method classname="java.io.FileReader" name="&lt;init&gt;" signature="(Ljava/lang/String;)V" isStatic="false" role="METHOD_CALLED">
+      <SourceLine classname="java.io.FileReader"/>
+    </Method>
+    <SourceLine classname="BwogBot" start="23" end="23" startBytecode="5" endBytecode="5" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    <SourceLine classname="BwogBot" start="23" end="23" startBytecode="5" endBytecode="5" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+  </BugInstance>
+  <BugInstance type="OS_OPEN_STREAM" priority="2" rank="16" abbrev="OS" category="BAD_PRACTICE" first="1">
+    <Class classname="BwogBot">
+      <SourceLine classname="BwogBot" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    </Class>
+    <Method classname="BwogBot" name="readFile" signature="(Ljava/lang/String;)V" isStatic="false">
+      <SourceLine classname="BwogBot" start="23" end="77" startBytecode="0" endBytecode="93" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    </Method>
+    <Type descriptor="Ljava/io/Reader;" role="TYPE_CLOSEIT">
+      <SourceLine classname="java.io.Reader"/>
+    </Type>
+    <SourceLine classname="BwogBot" start="24" end="24" startBytecode="9" endBytecode="9" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+    <SourceLine classname="BwogBot" start="24" end="24" startBytecode="9" endBytecode="9" sourcefile="BwogBot.java" sourcepath="BwogBot.java"/>
+  </BugInstance>
+  <BugInstance type="EQ_COMPARETO_USE_OBJECT_EQUALS" priority="2" rank="16" abbrev="Eq" category="BAD_PRACTICE" first="1">
+    <Class classname="Pair">
+      <SourceLine classname="Pair" sourcefile="Pair.java" sourcepath="Pair.java"/>
+    </Class>
+    <Method classname="Pair" name="compareTo" signature="(LPair;)I" isStatic="false">
+      <SourceLine classname="Pair" start="11" end="11" startBytecode="0" endBytecode="93" sourcefile="Pair.java" sourcepath="Pair.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" rank="17" abbrev="DLS" category="STYLE" first="1">
+    <Class classname="SeparateChainingMap">
+      <SourceLine classname="SeparateChainingMap" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    </Class>
+    <Method classname="SeparateChainingMap" name="put" signature="(Ljava/lang/Comparable;Ljava/lang/Object;)V" isStatic="false">
+      <SourceLine classname="SeparateChainingMap" start="49" end="105" startBytecode="0" endBytecode="118" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    </Method>
+    <LocalVariable name="n" register="6" pc="175" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="SeparateChainingMap" start="87" end="87" startBytecode="173" endBytecode="173" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    <SourceLine classname="SeparateChainingMap" start="87" end="87" startBytecode="173" endBytecode="173" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="n"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.NO_LOADS" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" rank="17" abbrev="DLS" category="STYLE" first="1">
+    <Class classname="SeparateChainingMap">
+      <SourceLine classname="SeparateChainingMap" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    </Class>
+    <Method classname="SeparateChainingMap" name="upsize" signature="()V" isStatic="false">
+      <SourceLine classname="SeparateChainingMap" start="145" end="209" startBytecode="0" endBytecode="96" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    </Method>
+    <LocalVariable name="oldtable" register="1" pc="10" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="SeparateChainingMap" start="145" end="145" startBytecode="9" endBytecode="9" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    <SourceLine classname="SeparateChainingMap" start="145" end="145" startBytecode="9" endBytecode="9" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.DEAD_OBJECT_STORE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.KILLED_BY_SUBSEQUENT_STORE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="oldtable"/>
+  </BugInstance>
+  <BugInstance type="ICAST_IDIV_CAST_TO_DOUBLE" priority="2" rank="17" abbrev="ICAST" category="STYLE" first="1">
+    <Class classname="SeparateChainingMap">
+      <SourceLine classname="SeparateChainingMap" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    </Class>
+    <Method classname="SeparateChainingMap" name="put" signature="(Ljava/lang/Comparable;Ljava/lang/Object;)V" isStatic="false">
+      <SourceLine classname="SeparateChainingMap" start="49" end="105" startBytecode="0" endBytecode="498" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    </Method>
+    <SourceLine classname="SeparateChainingMap" start="56" end="56" startBytecode="35" endBytecode="35" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    <SourceLine classname="SeparateChainingMap" start="56" end="56" startBytecode="35" endBytecode="35" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+  </BugInstance>
+  <BugInstance type="URF_UNREAD_FIELD" priority="2" rank="18" abbrev="UrF" category="PERFORMANCE" first="1">
+    <Class classname="SeparateChainingMap">
+      <SourceLine classname="SeparateChainingMap" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    </Class>
+    <Field classname="SeparateChainingMap" name="tree" signature="LAvlTree;" isStatic="false">
+      <SourceLine classname="SeparateChainingMap" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+    </Field>
+    <SourceLine classname="SeparateChainingMap" start="21" end="21" startBytecode="26" endBytecode="26" sourcefile="SeparateChainingMap.java" sourcepath="SeparateChainingMap.java"/>
+  </BugInstance>
+  <Errors errors="0" missingClasses="0"></Errors>
+  <FindBugsSummary timestamp="Sun, 11 Sep 2016 13:56:44 -0400" total_classes="7" referenced_classes="28" total_bugs="10" total_size="370" num_packages="1" java_version="1.8.0_25" vm_version="25.25-b02" cpu_seconds="38.75" clock_seconds="561.64" peak_mbytes="191.29" alloc_mbytes="494.94" gc_seconds="2.21" priority_2="7" priority_1="3">
+    <PackageStats package="" total_bugs="10" total_types="7" total_size="370" priority_2="7" priority_1="3">
+      <ClassStats class="AvlMap" sourceFile="AvlMap.java" interface="false" size="18" bugs="0"/>
+      <ClassStats class="AvlTree" sourceFile="AvlTree.java" interface="false" size="162" bugs="1" priority_2="1"/>
+      <ClassStats class="AvlTree$AvlNode" sourceFile="AvlTree.java" interface="false" size="15" bugs="0"/>
+      <ClassStats class="BwogBot" sourceFile="BwogBot.java" interface="false" size="38" bugs="4" priority_2="1" priority_1="3"/>
+      <ClassStats class="Map" sourceFile="Map.java" interface="true" size="3" bugs="0"/>
+      <ClassStats class="Pair" sourceFile="Pair.java" interface="false" size="12" bugs="1" priority_2="1"/>
+      <ClassStats class="SeparateChainingMap" sourceFile="SeparateChainingMap.java" interface="false" size="122" bugs="4" priority_2="4"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="de.tobject.findbugs.builder.FindBugs2Eclipse" totalMilliseconds="459" invocations="2" avgMicrosecondsPerInvocation="229582" maxMicrosecondsPerInvocation="349035" standardDeviationMircosecondsPerInvocation="119453"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="191" invocations="376" avgMicrosecondsPerInvocation="509" maxMicrosecondsPerInvocation="32650" standardDeviationMircosecondsPerInvocation="2172"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="121" invocations="376" avgMicrosecondsPerInvocation="322" maxMicrosecondsPerInvocation="26417" standardDeviationMircosecondsPerInvocation="1711"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="60" invocations="52" avgMicrosecondsPerInvocation="1172" maxMicrosecondsPerInvocation="21974" standardDeviationMircosecondsPerInvocation="3143"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="45" invocations="53" avgMicrosecondsPerInvocation="859" maxMicrosecondsPerInvocation="8231" standardDeviationMircosecondsPerInvocation="1356"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="41" invocations="52" avgMicrosecondsPerInvocation="803" maxMicrosecondsPerInvocation="5705" standardDeviationMircosecondsPerInvocation="1133"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="40" invocations="28" avgMicrosecondsPerInvocation="1436" maxMicrosecondsPerInvocation="10877" standardDeviationMircosecondsPerInvocation="2281"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="38" invocations="47" avgMicrosecondsPerInvocation="822" maxMicrosecondsPerInvocation="8267" standardDeviationMircosecondsPerInvocation="1354"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="37" invocations="54" avgMicrosecondsPerInvocation="694" maxMicrosecondsPerInvocation="30361" standardDeviationMircosecondsPerInvocation="4077"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="36" invocations="52" avgMicrosecondsPerInvocation="703" maxMicrosecondsPerInvocation="3567" standardDeviationMircosecondsPerInvocation="865"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="34" invocations="152" avgMicrosecondsPerInvocation="227" maxMicrosecondsPerInvocation="3054" standardDeviationMircosecondsPerInvocation="359"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="32" invocations="52" avgMicrosecondsPerInvocation="619" maxMicrosecondsPerInvocation="9357" standardDeviationMircosecondsPerInvocation="1335"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="28" invocations="28" avgMicrosecondsPerInvocation="1004" maxMicrosecondsPerInvocation="13084" standardDeviationMircosecondsPerInvocation="2511"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="27" invocations="28" avgMicrosecondsPerInvocation="980" maxMicrosecondsPerInvocation="5702" standardDeviationMircosecondsPerInvocation="1238"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History>
+    <AppVersion sequence="0" timestamp="1473618968151" release="" codeSize="0" numClasses="0"/>
+  </History>
+</BugCollection>
