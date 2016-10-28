@@ -1,0 +1,44 @@
+buildscript {
+	ext {
+		springBootVersion = '1.4.1.RELEASE'
+	}
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+
+war {
+	manifest{
+	  attributes('Main-Class' : 'org.springframework.boot.loader.WarLauncher',
+	  			 'Start-Class': 'com.stylease.MainApp')
+	}
+    baseName = 'Stylease'
+    version =  '0.1.0'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile group: 'com.stormpath.spring', name: 'stormpath-spring-security-webmvc-spring-boot-starter', version: '1.1.1'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    
+    compile("javax.servlet:jstl")
+    providedCompile "javax.servlet.jsp:jsp-api:2.2"
+    
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    providedRuntime("org.apache.tomcat.embed:tomcat-embed-jasper")
+    testCompile("junit:junit")
+}
