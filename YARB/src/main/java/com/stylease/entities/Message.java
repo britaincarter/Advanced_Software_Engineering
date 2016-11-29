@@ -1,4 +1,4 @@
-package com.stylease;
+package com.stylease.entities;
 
 public class Message {
     int id;

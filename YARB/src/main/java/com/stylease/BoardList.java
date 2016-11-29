@@ -1,6 +1,8 @@
 package com.stylease;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,10 +13,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.servlet.account.AccountResolver;
+import com.stylease.entities.Key;
+import com.stylease.entities.Message;
+import com.stylease.entities.User;
+import com.stylease.repos.BoardDAO;
+import com.stylease.repos.KeyDAO;
+import com.stylease.repos.UserDAO;
+import com.stylease.entities.Board;
 
+import java.io.IOException;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class BoardList {
@@ -85,13 +97,23 @@ public class BoardList {
   
   private ArrayList<Board> boards;
   
+  @Autowired
+  private KeyDAO keyDao;
+  
+  @Autowired
+  private UserDAO userDao;
+  
+  @Autowired
+  private BoardDAO boardDao;
+  
   private ArrayList<Board> getBoards() {
     ArrayList<Board> boardList = new ArrayList<>();
     for(int i = 0; i < STATIC_BOARD_COUNT; i++) {
       int messagesIdx = i % STATIC_MESSAGES.length;
       Board b = new Board();
-      b.name = STATIC_MESSAGES[messagesIdx][0];
-      b.id = i;
+      b.setMessages(new LinkedList<>());
+      b.setName(STATIC_MESSAGES[messagesIdx][0]);
+      b.setId((long)i);
       for(int j = 0; j < STATIC_MESSAGES[messagesIdx].length; j++) {
         Message m = new Message();
         
@@ -116,16 +138,28 @@ public class BoardList {
   }
   
   @GetMapping("/m_list/{boardId}")
-  public String viewAllMessages(@PathVariable int boardId, ModelMap model) {
-    if(boardId >= boards.size()) {
-      throw new ResourceNotFoundException();
+  public String viewAllMessages(HttpServletRequest req, @PathVariable int boardId, ModelMap model) {
+    
+    Board b = boardDao.getForId(boardId);
+    
+    if(b == null) {
+      if(boardId >= boards.size()) {
+        throw new ResourceNotFoundException();
+      }
+      
+      for(int i = 0; i < boards.get(boardId).getMessages().size(); i++) {
+        System.out.println(boards.get(boardId).getId());
+      }
+      
+      b = boards.get(boardId);
     }
     
-    for(int i = 0; i < boards.get(boardId).messages.size(); i++) {
-      System.out.println(boards.get(boardId).id);
-    }
+    User u = getUserFromSession(req);
+    Key perms = keyDao.getBoardPermissions(u, b);
     
-    model.addAttribute("allMessages", boards.get(boardId).messages);
+    model.addAttribute("canEdit", (perms.canInvite() || perms.isAdmin()));
+    model.addAttribute("title", b.getName());
+    model.addAttribute("allMessages", b.getMessages());
     model.addAttribute("board", boardId);
     return "m_list";
   }
@@ -135,6 +169,19 @@ public class BoardList {
       Account account = AccountResolver.INSTANCE.getAccount(req);
       if (account != null) {
           model.addAttribute(account);
+          User u = userDao.getUserForStormpathAccount(account);
+          if(u == null) {
+            u = new User();
+            u.setAccount(account);
+            
+            ArrayList<Key> keys = new ArrayList<>(1);
+            keys.add(keyDao.getPublicKey());
+            u.setKeys(keys);
+            
+            userDao.addUser(u);
+          }
+          
+          req.getSession().setAttribute("user", u);
       }
     
     //return "home";
@@ -147,8 +194,8 @@ public class BoardList {
     String post = "No message with that ID.";
     if(this.boards.size() > boardId) {
       Board b = boards.get(boardId);
-      if (b.messages.size() > messageId) {
-          post = b.messages.get(messageId).text;
+      if (b.getMessages().size() > messageId) {
+          post = b.getMessages().get(messageId).getText();
       }
       
       System.out.println(messageId);
@@ -176,18 +223,89 @@ public class BoardList {
     
     Board b = boards.get(boardId);
     
-    Message m = new Message(b.messages.size(), message);  
-    b.addMessage(m, b.messages.size());
-    model.addAttribute("allMessages", b.messages);
+    Message m = new Message(b.getMessages().size(), message);  
+    b.addMessage(m, b.getMessages().size());
+    model.addAttribute("allMessages", b.getMessages());
     model.addAttribute("board", boardId);
     return "m_list";
   }
-  
-  @ResponseStatus(value = HttpStatus.NOT_FOUND)
-  public class ResourceNotFoundException extends RuntimeException {
-
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 7963054889196792099L;}
+    
+    @GetMapping("/m_list/{boardId}/delete") 
+    public String deleteBoard(HttpServletRequest req, @PathVariable int boardId, ModelMap model) {
+      Board b = boardDao.getForId(boardId);
+      if(b == null) {
+        throw new ResourceNotFoundException();
+      }
+      
+      User u = getUserFromSession(req);
+      
+      Key perms = keyDao.getBoardPermissions(u, b);
+      if(!perms.isAdmin()) {
+        throw new ResourceForbiddenException();
+      }
+      
+      model.addAttribute("boardName", b.getName());
+      String referrer = req.getHeader("Referer");
+      if(referrer == null) {
+        referrer = "/";
+      }
+      
+      model.addAttribute("nolink", referrer);
+      
+      return "b_del";
+    }
+    
+    @PostMapping(path = "/b/{boardId}/delete", params = "del")
+    public String deleteBoard(HttpServletRequest req, HttpServletResponse resp, @PathVariable int boardId, ModelMap model) {
+      
+      Board b = boardDao.getForId(boardId);
+      if(b == null) {
+        throw new ResourceNotFoundException();
+      }
+      
+      User u = getUserFromSession(req);
+      
+      Key perms = keyDao.getBoardPermissions(u, b);
+      if(!perms.isAdmin()) {
+        throw new ResourceForbiddenException();
+      }
+      
+      boardDao.deleteBoard(b);
+      try {
+        resp.sendRedirect("/b_list");
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+        model.addAttribute("errors", new String[]{"Board deleted; error redirecting"});
+      }
+      
+      return "b_del";
+    }
+    
+    private User getUserFromSession(HttpServletRequest r) {
+      Object o = r.getSession().getAttribute("user");
+      if(o == null) {
+        Account account = AccountResolver.INSTANCE.getAccount(r);
+        if (account != null) {
+          
+          User u = userDao.getUserForStormpathAccount(account);
+          if(u == null) {
+            u = new User();
+            u.setAccount(account);
+            
+            ArrayList<Key> keys = new ArrayList<>(1);
+            keys.add(keyDao.getPublicKey());
+            u.setKeys(keys);
+            
+            userDao.addUser(u);
+          }
+          
+          r.getSession().setAttribute("user", u);
+          
+          return u;
+        }
+      }
+      
+      return (User)o;
+    }
 }

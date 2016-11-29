@@ -4,13 +4,14 @@
 <%@attribute name="title" required="false" %>
  
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stylease | <c:out value="${!empty title ? title : ''}"/></title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/resources/css/style.css" rel="stylesheet">
     <%-- <link href="${pageContext.request.contextPath}/assets/css/style.css" rel="stylesheet" --%>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,10 +24,10 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="container fill">
  
         <div class="header">
- 
+ 			
             <ul class="nav nav-pills pull-right">
                 <c:set var="uri" value="${requestScope['javax.servlet.forward.request_uri']}"/>
                 <c:choose><c:when test="${!empty account}">
@@ -37,6 +38,11 @@
                 <%-- Change upper right context menu depending on if the user is logged in or not: --%>
                 <c:choose>
                     <c:when test="${!empty account}">
+                    	<li>
+                    		<a href="/b_add">
+                    			New Board
+                    		</a>
+                    	</li>
                         <li><form action="/logout" method="POST">
                         <input type="submit" class="btn btn-danger" value="Logout"/></form></li>
                     </c:when>
@@ -48,9 +54,17 @@
             </ul>
  
             <h3 class="text-muted">Stylease</h3>
- 
+            
         </div>
- 
+        <c:if test="${!empty errors}">
+	        <div class="alert alert-danger">
+	        	<ul>
+	        		<c:forEach var="error" items="${errors}">
+	        			<li>${error}</li>
+	        		</c:forEach>
+	        	</ul>
+	        </div>
+        </c:if>
         <jsp:doBody/>
  
     </div>

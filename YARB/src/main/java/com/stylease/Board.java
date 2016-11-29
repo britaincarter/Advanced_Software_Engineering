@@ -2,6 +2,8 @@ package com.stylease;
 
 import java.util.*;
 
+import com.stylease.entities.Message;
+
 public class Board {
     public ArrayList<Message> messages;
     String name;
@@ -33,9 +35,14 @@ public class Board {
     }
 */    
     public void addMessage(Message m, int i) {
-      m.id = i;
+      m.setId(i);
       this.messages.add(i, m);
-      System.out.println("Added message " + m.id);
+      System.out.println("Added message " + m.getId());
+    }
+
+    public Message getMessage(int i) {
+      // TODO Auto-generated method stub
+      return messages.get(i);
     }
 
 }
